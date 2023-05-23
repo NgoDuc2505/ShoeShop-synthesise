@@ -4,17 +4,16 @@ import Header from '../../components/header/Header'
 import CarouselOponent from '/src/components/carousel/Carousel'
 import ListItem from '../../components/listItem/ListItem'
 import Footer from '/src/components/footer/Footer'
+import Loading from '../../components/loading/Loading'
 
 function HomePlate() {
     return (
         <Fragment>
             <Header/>
-            <CarouselOponent/>
-            <ListItem/>
-            <Footer/>
-            <Suspense fallback={<><h1>Loading...</h1></>}>
+            <Suspense fallback={<><Loading/></>}>
                 <Outlet />
             </Suspense>
+            <Footer/>
         </Fragment>
     )
 }

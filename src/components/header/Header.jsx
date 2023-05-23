@@ -9,7 +9,9 @@ function Header() {
     
         <header className='header'>
             <div className="left_header">
-           <Logo></Logo>
+                <NavLink to={'/'}>
+                    <Logo></Logo>
+                </NavLink>
             </div>
            <div className="right_header">
                 <ul>
