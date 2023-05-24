@@ -3,6 +3,7 @@ import { Carousel } from 'antd';
 //react
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 //-------------------------------------------------------------------------
 
@@ -37,7 +38,8 @@ function CarouselOponent() {
               <div className="right_carousel">
                 <p className='prod_name'>{product.name}</p>
                 <p className='prod_des'>{product.description}</p>
-                <button className='prod_btn'>Buy now</button>
+                {/* <button className='prod_btn'>Buy now</button> */}
+                <NavLink className='prod_btn' to={`/detail/` + product.id}>Buy now</NavLink>
               </div>
             </div>
           </div>

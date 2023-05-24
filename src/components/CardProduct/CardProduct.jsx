@@ -19,11 +19,11 @@ function CardProduct(props) {
     return (
         <div className='card-product'>
             <div className="card-product-img">
-                <img src={product.image} alt="" />
+                <img src={product.image} alt="..." />
             </div>
             <div className="card-product-content">
-                <h3 className='content.title'>Adidas Prophere Black White</h3>
-                <p className='content.sub'>{product.shortDescription}</p>
+                <h3>{product.name}</h3>
+                <p>{product.shortDescription}</p>
             </div>
             <div className="card-product-interact ">
 
