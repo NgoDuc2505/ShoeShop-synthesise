@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Space } from 'antd';
 import './register.scss';
-import { useFormik, Formik, Field, Form} from 'formik';
+import { useFormik} from 'formik';
 import * as Yup from 'yup';
 function Register() {
   const regex = {
@@ -15,7 +15,7 @@ function Register() {
       password:'',
       psConfirm:'',
       phone:'',
-      gender:'true'
+      gender:'false'
     },
     validationSchema: Yup.object({
       email: Yup.string().required('this field is required !').email('Email must be valid'),
