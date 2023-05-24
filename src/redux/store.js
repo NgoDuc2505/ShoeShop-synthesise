@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import listProductSliceReducer from './redux-slides/productListSlide'
+import productReducer from './redux-slides/productListSlide'
+
 export const store = configureStore({
   reducer: {
-    listProductSliceReducer,
+    productReducer: productReducer
   },
 })
