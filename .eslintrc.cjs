@@ -17,6 +17,7 @@ module.exports = {
     'react/jsx-no-undef':'off',
     'no-unreachable':'off',
     'no-const-assign':'off',
-    'react-hooks/exhaustive-deps': 'off'
+    'react-hooks/exhaustive-deps': 'off',
+    'react/prop-types':'off',
   },
 }
