@@ -1,26 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getListShoe } from './../../services/getListShoe'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    listItem:[
-        {
-            name:'adidas',
-            price: 3000,
-            image:'https://shop.cyberlearn.vn/images/adidas-prophere.png',
-        }
-    ],
-};
+    listProduct: [],
+    productDetail: {}
+}
 
-export const listProductSlice = createSlice({
-    name: 'listProd',
+const ProductSlice = createSlice({
+    name: 'ProductSlice',
     initialState,
     reducers: {
-        getAPIList: (state,action)=>{
-            state.listItem = [...action.payload]
-        }
-    },
-});
-console.log(listProductSlice)
-export default listProductSlice.reducer;
+        setListProduct: (state, action) => {
+            state.listProduct = action.payload;
 
-export const { getAPIList } = listProductSlice.actions;
+        },
+        setProductDetail: (state, action) => {
+            state.productDetail = action.payload
+        }
+    }
+});
+
+export const { setListProduct, setProductDetail } = ProductSlice.actions
+
+export default ProductSlice.reducer
