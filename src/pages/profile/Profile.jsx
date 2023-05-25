@@ -4,8 +4,11 @@ import RadioGroup from '../../components/input-field/RadioGroup'
 import './profile.scss'
 import { Button, Space } from 'antd';
 import ProdTable from '../../components/product_table_format/ProdTable';
+import { useSelector } from 'react-redux';
+import CardProduct from '../../components/CardProduct/CardProduct';
 
 function Profile() {
+  const {favoriteProductList} = useSelector((state)=> state.productReducer)
   return (
     <>
       <div className="profile_title">
@@ -26,7 +29,7 @@ function Profile() {
             <div className="radio-group">
               <RadioGroup />
               <Space wrap>
-                <Button className='btn_submit_login' shape='round' type="submit">Submit</Button>
+                <Button className='btn_submit_login' shape='round' type="submit">Update</Button>
               </Space>
             </div>
           </div>
@@ -47,7 +50,12 @@ function Profile() {
             <ProdTable/>
             </div>
             <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            ...Favorite
+            <div className="favorite_list">
+              {
+                favoriteProductList.length > 0 ? favoriteProductList?.map((item,index) =>{
+                  return (<CardProduct key={index} product={item} show={false} />)}) : <h1>Empty</h1>
+              }
+            </div>
             </div>
           </div>
         </div>
