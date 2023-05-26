@@ -17,7 +17,7 @@ function CardProduct(props) {
     const [imgSrc, setImgSrc] = useState(heartBorder)
     
     useEffect(() => {
-        if (favoriteProd.find((favorite) => favorite.id === product.id)) {
+        if (favoriteProd?.find((favorite) => favorite.id === product.id)) {
             setIsFavor(true);
             setImgSrc(heartFull)
         } else {

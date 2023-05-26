@@ -3,7 +3,13 @@ import { NavLink } from 'react-router-dom'
 import Logo from '/src/assets/icons/logo';
 import SearchIcon from '/src/assets/icons/SearchIcon'
 import './header.scss'
+import { useSelector } from 'react-redux';
+
+
 function Header() {
+    const { cartList } = useSelector(state => state.productReducer)
+    const sumCart = cartList?.reduce((sum, product) => sum + product.count,0) || 0
+
   return (
     <>
     
@@ -36,7 +42,7 @@ function Header() {
                         <NavLink to={'/cart'}>
                         <div className="li_wrapper">
                         <img src="/src/assets/icons/cartIcon.svg" alt="..." />
-                        <p>(1)</p>
+                        <p>({sumCart})</p>
                         </div>
                         </NavLink>
                     </li>

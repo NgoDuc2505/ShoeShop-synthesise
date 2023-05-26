@@ -29,7 +29,9 @@ function App() {
           <Route index element={<Home />}></Route>
           <Route path='login' element={<Login />}></Route>
           <Route path='profile' element={<Profile />}></Route>
-          <Route path='detail' element={<Detail />}></Route>
+          <Route path='detail'>
+            <Route path=':productID' element={<Detail />} />
+          </Route>
           <Route path='cart' element={<Cart />}></Route>
           <Route path='register' element={<Register />}></Route>
           <Route path='search' element={<Search />}></Route>
