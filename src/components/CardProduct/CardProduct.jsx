@@ -1,19 +1,35 @@
 import './CardProduct.scss';
 //react
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { setFavoriteProductList, removeFavoriteProduct } from '/src/redux/redux-slides/productListSlide.js'
+import { useDispatch } from 'react-redux';
+//assets
+import heartFull from "/src/assets/icons/heartFull.svg";
+import heartBorder from "/src/assets/icons/heartBoder.svg";
 
 //---------------------------------------------------------------------------------
 
 function CardProduct(props) {
-    const { product, show } = props;
-    const [favorite, setFavorite] = useState(false);
-
-    const [imgSrc, setImgSrc] = useState("/src/assets/icons/heartBoder.svg")
+    const dispatch = useDispatch();
+    const { product, show, favoriteProd } = props;
+    const [isFavor, setIsFavor] = useState();
+    const [imgSrc, setImgSrc] = useState(heartBorder)
+    
+    useEffect(() => {
+        if (favoriteProd.find((favorite) => favorite.id === product.id)) {
+            setIsFavor(true);
+            setImgSrc(heartFull)
+        } else {
+            setImgSrc(heartBorder)
+        }
+    }, [favoriteProd])
 
     const handleChangeFavorite = () => {
-        setFavorite(!favorite)
-        setImgSrc(favorite ? "/src/assets/icons/heartBoder.svg" : "/src/assets/icons/heartFull.svg")
+        dispatch(!isFavor ?
+            setFavoriteProductList(product) :
+            removeFavoriteProduct(product.id)
+        )
     }
 
     return (
