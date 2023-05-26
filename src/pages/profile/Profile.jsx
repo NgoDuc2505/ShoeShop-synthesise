@@ -6,8 +6,9 @@ import { Button, Space } from 'antd';
 import ProdTable from '../../components/product_table_format/ProdTable';
 import { useSelector } from 'react-redux';
 import CardProduct from '../../components/CardProduct/CardProduct';
-
+import useScroolToTop from '../../utils/custom-hook/useScroolToTop';
 function Profile() {
+  useScroolToTop()
   const {favoriteProductList} = useSelector((state)=> state.productReducer)
   return (
     <>

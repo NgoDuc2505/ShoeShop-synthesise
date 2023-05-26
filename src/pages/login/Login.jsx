@@ -5,42 +5,13 @@ import { NavLink } from 'react-router-dom';
 import { Button, Space } from 'antd';
 import { useFormik} from 'formik';
 import * as Yup from 'yup';
+import formiK, {submitValid} from '../../utils/formik/formikGenerate';
+import useScroolToTop from '../../utils/custom-hook/useScroolToTop';
+
 function Login() {
-  
-  const regex = {
-    password:/^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^& "]).*$/,
-  };
-  const formik = useFormik({
-    initialValues:{
-      email:'',
-      password:'',
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email('Email must be valid !').required('Please fill in this field !'),
-      password: Yup.string().required('Please fill in this field !').matches(regex.password,'Please fill with valid password !(contain at least 1 digit, 1 special character, 1 alphabeltic character)').min(6,'Min is 6 characters').max(12,'Max is 12 characters'),
-    })
-  });
-  const handleLoginClick = ()=>{
-    const {values, errors} = formik;
-    let isAllValid = true;
-    console.log('values:',values);
-    console.log('errors:', errors);
-    const valueArr = Object.values(values);
-    for(let i =0; i < valueArr.length; i++){
-      if(!valueArr[i]){
-        isAllValid = false;
-        alert('Please not let any empty!');
-        break;
-      }else if(Object.values(errors)[i]){
-        isAllValid = false;
-        alert('please not let any invalid !');
-        break;
-      }
-    }
-    if(isAllValid){
-      alert('Success !');
-    }
-  }
+  useScroolToTop()
+  const formik = formiK();
+
   return (
     <>
     <div className="container">
@@ -72,7 +43,7 @@ function Login() {
             <div className="form_action form-group-login">
               <NavLink to={'/register'}>Register now ?</NavLink>
               <Space wrap>
-                <Button className='btn_submit_login' shape='round' type="submit" onClick={handleLoginClick}>Log in</Button>
+                <Button className='btn_submit_login' shape='round' type="submit" onClick={()=>{submitValid(formik,['email','password'])}}>Log in</Button>
               </Space>
             </div>
             <div className="form-group-login facebook-login">

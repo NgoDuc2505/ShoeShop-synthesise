@@ -3,51 +3,13 @@ import { Button, Space } from 'antd';
 import './register.scss';
 import { useFormik} from 'formik';
 import * as Yup from 'yup';
+import formiK, {submitValid} from '../../utils/formik/formikGenerate';
+import useScroolToTop from '../../utils/custom-hook/useScroolToTop';
+
 function Register() {
-  const regex = {
-    nameByVietnamese : /^[a-z A-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/,
-    password:/^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^& "]).*$/,
-  }
-  const formik = useFormik({
-    initialValues:{
-      email:'',
-      name:'',
-      password:'',
-      psConfirm:'',
-      phone:'',
-      gender:'false'
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().required('this field is required !').email('Email must be valid'),
-      name: Yup.string().matches(regex.nameByVietnamese,'Name must be valid').required('Name is required !'),
-      phone:Yup.number().required('Phone is required'),
-      password: Yup.string().min(6,'Min is 6 characters').max(12,'Max is 12 characters').required('Password can not be empty').matches(regex.password,'password must contain at least 1 digit, 1 special character, 1 alphabeltic character !'),
-      psConfirm: Yup.string().required('Please confirm your password').oneOf([Yup.ref('password')],'Passwords must match!')
-    }),
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
-  const handleSubmit = ()=>{
-    const {errors, values }= formik
-  
-    let isAllValid = true;
-    const arrKeysValues = Object.keys(values);
-    for(let i = 0 ; i < arrKeysValues.length ; i++){
-      if(!values[arrKeysValues[i]]){
-        alert('Please fill in the form and do not let any empty!');
-        isAllValid = false;
-        break;
-      }else if(errors[arrKeysValues[i]]){
-        alert('please not let any invalid');
-        isAllValid = false
-        break;
-      }
-    }
-    if(isAllValid){
-      alert('Success!')
-    }
-  }
+  useScroolToTop()
+  const formik = formiK();
+ 
   return (
     <>
       <div className="container">
@@ -133,7 +95,7 @@ function Register() {
               </div>
 
               <Space wrap>
-                <Button className='btn_submit_register' shape='round' type="submit" onClick={handleSubmit}>Submit</Button>
+                <Button className='btn_submit_register' shape='round' type="submit" onClick={()=>{submitValid(formik,['*'])}}>Submit</Button>
               </Space>
             </div>
           </form>

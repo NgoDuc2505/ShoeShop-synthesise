@@ -6,6 +6,7 @@ import ListItem from '../../components/listItem/ListItem'
 import Footer from '/src/components/footer/Footer'
 import Loading from '../../components/loading/Loading'
 
+
 function HomePlate() {
     return (
         <Fragment>
