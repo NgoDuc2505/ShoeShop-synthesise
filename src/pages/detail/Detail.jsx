@@ -1,13 +1,19 @@
-import React, { useEffect } from 'react'
 import './Detail.scss'
+//axios
 import axios from 'axios'
+//react
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import useScrollToTop from '../../utils/custom-hook/useScrollToTop'
-import { setProductDetail } from '../../redux/redux-slides/productListSlide'
-import DetailProduct from '../../components/DetailProduct/DetailProduct'
-import CardProduct from '../../components/CardProduct/CardProduct'
+//utils
+import useScrollToTop from '/src/utils/custom-hook/useScrollToTop'
+//redux
+import { setProductDetail } from '/src/redux/redux-slides/productListSlide'
+//component
+import DetailProduct from '/src/components/DetailProduct/DetailProduct'
+import CardProduct from '/src/components/CardProduct/CardProduct'
 
+//---------------------------------------------------------------------------------
 
 function Detail() {
 	useScrollToTop()

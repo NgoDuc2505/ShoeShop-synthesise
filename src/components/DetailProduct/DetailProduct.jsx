@@ -1,8 +1,12 @@
+import './DetailProduct.scss'
+//react
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import './DetailProduct.scss'
-import { setToCart } from '../../redux/redux-slides/productListSlide'
 import { useParams } from 'react-router-dom'
+//redux
+import { setToCart } from '/src/redux/redux-slides/productListSlide'
+
+//---------------------------------------------------------------------------------
 
 function DetailProduct() {
     const dispatch = useDispatch()
