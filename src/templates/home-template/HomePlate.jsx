@@ -1,11 +1,12 @@
+//react
 import React, { Fragment, Suspense} from 'react'
-import { Outlet, NavLink } from 'react-router-dom'
-import Header from '../../components/header/Header'
-import CarouselOponent from '/src/components/carousel/Carousel'
-import ListItem from '../../components/listItem/ListItem'
+import { Outlet } from 'react-router-dom'
+//component
+import Header from '/src/components/header/Header'
 import Footer from '/src/components/footer/Footer'
-import Loading from '../../components/loading/Loading'
+import Loading from '/src/components/loading/Loading'
 
+//---------------------------------------------------------------------------------
 
 function HomePlate() {
     return (

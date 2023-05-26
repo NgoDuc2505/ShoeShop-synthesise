@@ -8,10 +8,10 @@ import CardProduct from '../CardProduct/CardProduct'
 //---------------------------------------------------------------------------------
 
 function ListItem() {
-  const { listProduct,favoriteProductList } = useSelector((state) => state.productReducer)
+  const { listProduct, favoriteProductList } = useSelector((state) => state.productReducer)
   return (
     <div className="list-product">
-      {listProduct.map((product,index) =>
+      {listProduct.map((product) =>
         <CardProduct key={product.id} product={product} show={true} favoriteProd={favoriteProductList} />
       )}
     </div>
