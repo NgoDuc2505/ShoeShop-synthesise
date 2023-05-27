@@ -24,7 +24,7 @@ const TableCart = () => {
 
   useEffect(() => {
     setListCart(cartList)
-  }, [])
+  }, [cartList])
 
   const rowSelection = {
     onChange: (_, selectedRows) => {
@@ -86,7 +86,6 @@ const TableCart = () => {
         )
       }
     })
-   
   };
 
   return (
