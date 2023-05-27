@@ -35,7 +35,15 @@ const ProductSlice = createSlice({
             } else {
                 state.cartList[indexById] = action.payload
             }
-        }
+        },
+        changeCount: (state,action) => {
+            const indexById = state.cartList.findIndex((product)=> product.id === action.payload.id);
+            state.cartList[indexById].count = state.cartList[indexById].count + action.payload.value;
+        },
+        removeProdCart: (state, action) => {
+            const indexById = state.cartList.findIndex((product)=> product.id === action.payload);
+            state.cartList.splice(indexById,1)
+        },
         
     }
 });
@@ -46,6 +54,9 @@ export const {
     setFavoriteProductList, 
     removeFavoriteProduct ,
     setToCart,
+    changeCount,
+    removeProdCart,
+
 } = ProductSlice.actions
 
 export default ProductSlice.reducer
