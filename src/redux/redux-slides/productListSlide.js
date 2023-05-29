@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const listCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')): [];
+const historyOrderList = localStorage.getItem('historyArr') ? JSON.parse(localStorage.getItem('historyArr')) : [];
 
 const initialState = {
     listProduct: [],
     productDetail: {},
     favoriteProductList:[],
     cartList: listCart,
+    orderHistoryList: historyOrderList,
 }
 
 const ProductSlice = createSlice({
@@ -28,7 +30,14 @@ const ProductSlice = createSlice({
             });
             state.favoriteProductList.splice(indexById,1)
         },
+        setListCartAfterSubmit:(state, action)=>{
+            state.cartList = action.payload
+        },
+        setHistoryOrder:(state,action)=>{
+            state.orderHistoryList.push(action.payload)
+        },
         setToCart: (state, action) => {
+            console.log(action.payload)
             const indexById = state.cartList.findIndex((product)=> product.id === action.payload.id);
             if(indexById === -1){
                 state.cartList.push(action.payload)
@@ -56,6 +65,8 @@ export const {
     setToCart,
     changeCount,
     removeProdCart,
+    setListCartAfterSubmit,
+    setHistoryOrder,
 
 } = ProductSlice.actions
 

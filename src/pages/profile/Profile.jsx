@@ -1,15 +1,23 @@
+// react
 import React from 'react'
+import { useSelector } from 'react-redux';
+// component
 import InputField from '../../components/input-field/InputField'
 import RadioGroup from '../../components/input-field/RadioGroup'
-import './profile.scss'
-import { Button, Space } from 'antd';
-import ProdTable from '../../components/product_table_format/ProdTable';
-import { useSelector } from 'react-redux';
 import CardProduct from '../../components/CardProduct/CardProduct';
-import useScroolToTop from '../../utils/custom-hook/useScroolToTop';
+import ProdTable from '../../components/product_table_format/ProdTable';
+// scss
+import './profile.scss'
+//antd
+import { Button, Space, Empty} from 'antd';
+// untils
+import useScrollToTop from '../../utils/custom-hook/useScrollToTop';
+
+//----------------------------------------------------------------------
+
 function Profile() {
-  useScroolToTop()
-  const {favoriteProductList} = useSelector((state)=> state.productReducer)
+  useScrollToTop()
+  const {favoriteProductList, orderHistoryList} = useSelector((state)=> state.productReducer)
   return (
     <>
       <div className="profile_title">
@@ -48,13 +56,43 @@ function Profile() {
           </ul>
           <div className="tab-content" id="myTabContent">
             <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <ProdTable/>
+              {orderHistoryList.map((item,index)=>{
+               return <ProdTable item={item} key={index}/>
+              })}
+              <div className="page_number">
+                <div className="page_number_wrapper">
+                    <div className="square">
+                        <img src="/src/assets/icons/arrowLeft.svg" alt="..." />
+                    </div>
+                    <div className="square">2</div>
+                    <div className="square">3</div>
+                    <div className="square">...</div>
+                    <div className="square">9</div>
+                    <div className="square">10</div>
+                    <div className="square">
+                        <img src="src/assets/icons/arrowRight.svg" alt="..." />
+                    </div>
+                </div>
+            </div>
             </div>
             <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div className="favorite_list">
               {
-                favoriteProductList.length > 0 ? favoriteProductList?.map((item,index) =>{
-                  return (<CardProduct key={index} product={item} show={false} />)}) : <h1>Empty</h1>
+                favoriteProductList.length > 0 
+                ? favoriteProductList?.map((item,index) =>{
+                  return (<CardProduct key={index} product={item} show={false} />)}) 
+                  : <div className="empty_antd"><Empty
+                  image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                  imageStyle={{
+                    height: 60,
+                  }}
+                  description={
+                    <span>
+                      Empty
+                    </span>
+                  }
+                >
+                </Empty></div>
               }
             </div>
             </div>

@@ -9,15 +9,21 @@ import { InputNumber } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //redux
-import { changeCount, removeProdCart } from '/src/redux/redux-slides/productListSlide'
+import { changeCount, removeProdCart, setListCartAfterSubmit, setHistoryOrder } from '/src/redux/redux-slides/productListSlide'
 
 //---------------------------------------------------------------------------------
-
+const dateJSObject = new Date();
+const orderTimeSet = {
+  year: dateJSObject.getFullYear(),
+  day: dateJSObject.getDate(),
+  month: dateJSObject.getMonth()+1,
+};
+const {day, month, year} = orderTimeSet;
 
 const TableCart = () => {
   const dispatch = useDispatch();
 
-  const { cartList } = useSelector(state => state.productReducer);
+  const { cartList, orderHistoryList } = useSelector(state => state.productReducer);
   const [listOrder, setListOrder] = useState([]);
   const [listCart, setListCart] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
@@ -57,7 +63,6 @@ const TableCart = () => {
         setListCart(list)
         dispatch(removeProdCart(id))
         localStorage.setItem('cart', JSON.stringify(list))
-
         Swal.fire(
           'Delete!',
           'You have deleted this product!',
@@ -69,6 +74,7 @@ const TableCart = () => {
 
   const handleSubmit = () => {
     let list = listCart.filter(o1 => !listOrder.some(o2 => o1.id === o2.id));
+    let submitedList = listCart.filter(o1 => listOrder.some(o2 => o1.id === o2.id));
     Swal.fire({
       title: 'Are you sure to submit order',
       confirmButtonText: 'Confirm',
@@ -78,7 +84,9 @@ const TableCart = () => {
       if (result.isConfirmed) {
         setListCart(list)
         localStorage.setItem('cart', JSON.stringify(list))
-
+        dispatch(setListCartAfterSubmit(list))
+        dispatch(setHistoryOrder({list: submitedList, date:{day,month,year}}))
+        localStorage.setItem('historyArr',JSON.stringify([...orderHistoryList,{list: submitedList, date:{day,month,year}}]))
         Swal.fire(
           'Success!',
           'You order have been transfer!',
