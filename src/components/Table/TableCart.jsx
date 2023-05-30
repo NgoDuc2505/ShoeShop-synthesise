@@ -75,6 +75,7 @@ const TableCart = () => {
   const handleSubmit = () => {
     let list = listCart.filter(o1 => !listOrder.some(o2 => o1.id === o2.id));
     let submitedList = listCart.filter(o1 => listOrder.some(o2 => o1.id === o2.id));
+    
     Swal.fire({
       title: 'Are you sure to submit order',
       confirmButtonText: 'Confirm',
@@ -83,15 +84,21 @@ const TableCart = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         setListCart(list)
-        localStorage.setItem('cart', JSON.stringify(list))
+
+        localStorage.setItem('cart', 
+        JSON.stringify(list))
+        localStorage.setItem('historyArr',
+        JSON.stringify([...orderHistoryList,{list: submitedList, date:{day,month,year}}]))
+
         dispatch(setListCartAfterSubmit(list))
         dispatch(setHistoryOrder({list: submitedList, date:{day,month,year}}))
-        localStorage.setItem('historyArr',JSON.stringify([...orderHistoryList,{list: submitedList, date:{day,month,year}}]))
+        
         Swal.fire(
           'Success!',
           'You order have been transfer!',
           'success'
         )
+
       }
     })
   };

@@ -38,10 +38,10 @@ function DetailProduct() {
 
     return (
         <div className='detail-product row'>
-            <div className="detail-product-left col-4">
+            <div className="detail-product-left">
                 <img src={productDetail.image} alt="" />
             </div>
-            <div className="detail-product-right col-8">
+            <div className="detail-product-right">
                 <h2>{productDetail.name}</h2>
                 <p>{productDetail.description}</p>
                 <h3>Available size</h3>
