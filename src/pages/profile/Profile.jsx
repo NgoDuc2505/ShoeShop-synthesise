@@ -8,7 +8,7 @@ import CardProduct from '../../components/CardProduct/CardProduct';
 // scss
 import './profile.scss'
 //antd
-import { Button, Space, Empty} from 'antd';
+import { Button, Space} from 'antd';
 // untils
 import useScrollToTop from '../../utils/custom-hook/useScrollToTop';
 import PaginationWrapper from '../../components/pagination-setup/PaginationWrapper';
