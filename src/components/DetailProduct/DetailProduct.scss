@@ -1,6 +1,7 @@
 .detail-product {
     margin: 0 6.4rem;
-
+    display: flex;
+    justify-content: space-around;
     .detail-product-left {
         margin-top: 5.8rem;
         max-width: 334px;

@@ -87,6 +87,7 @@ const TableCart = () => {
         dispatch(setListCartAfterSubmit(list))
         dispatch(setHistoryOrder({list: submitedList, date:{day,month,year}}))
         localStorage.setItem('historyArr',JSON.stringify([...orderHistoryList,{list: submitedList, date:{day,month,year}}]))
+        
         Swal.fire(
           'Success!',
           'You order have been transfer!',
