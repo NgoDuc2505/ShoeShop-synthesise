@@ -1,10 +1,13 @@
 // react
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
 // component
 import InputField from '../../components/input-field/InputField'
 import RadioGroup from '../../components/input-field/RadioGroup'
 import CardProduct from '../../components/CardProduct/CardProduct';
+import { profileThunkAction } from '../../redux/redux-slides/userReduxSlides';
+
 // scss
 import './profile.scss'
 //antd
@@ -13,31 +16,44 @@ import { Button, Space} from 'antd';
 import useScrollToTop from '../../utils/custom-hook/useScrollToTop';
 import PaginationWrapper from '../../components/pagination-setup/PaginationWrapper';
 import EmptyDataDisplay from '../../components/empty-display/EmptyDataDisplay';
+import { getLocal } from '/src/utils/localStorage/index.js';
+//constant
+import { ACCESS_TOKEN} from '/src/const/index.js';
+import GoLogin from '../../components/go-to-login/GoLogin';
 
 //----------------------------------------------------------------------
 
 function Profile() {
+  const navigate = useNavigate()
   useScrollToTop()
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(profileThunkAction())
+  },[])
   const {favoriteProductList, orderHistoryList} = useSelector((state)=> state.productReducer);
+  const { profileData } = useSelector((state)=>state.userReduxSlides)
+  const {avatar,gender,password,name,phone,email,orderHistory} = profileData
   return (
     <>
-      <div className="profile_title">
+      {getLocal(ACCESS_TOKEN) 
+      ? (<>
+       <div className="profile_title">
         <p>Profile</p>
       </div>
       <div className="information_area">
         <div className="left_detail">
-          <img src="https://tse1.mm.bing.net/th?id=OIP.k5IKliwHRHtKyVramxE8MAHaFj&pid=Api&P=0&h=180" alt="user" />
+          <img src={avatar} alt="user" />
         </div>
         <div className="right_detail row">
           <div className="col-6 col-right">
-            <InputField title={'Email'} field={'email'} />
-            <InputField title={'Password'} field={'passsword'} />
+            <InputField title={'Email'} field={'email'} value={email}/>
+            <InputField title={'Password'} field={'passsword'} value={password}/>
           </div>
           <div className="col-6 col-right">
-            <InputField title={'Name'} field={'name'} />
-            <InputField title={'Phone'} field={'phone'} />
+            <InputField title={'Name'} field={'name'} value={name}/>
+            <InputField title={'Phone'} field={'phone'} value={phone}/>
             <div className="radio-group">
-              <RadioGroup />
+              <RadioGroup gender={gender}/>
               <Space wrap>
                 <Button className='btn_submit_login' shape='round' type="submit">Update</Button>
               </Space>
@@ -75,6 +91,11 @@ function Profile() {
         </div>
 
       </div>
+      </>) : 
+      (
+        <GoLogin/>
+      )}
+     
     </>
   )
 }
