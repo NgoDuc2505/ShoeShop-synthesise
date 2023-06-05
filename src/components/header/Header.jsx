@@ -63,7 +63,7 @@ function Header() {
                         : (getLocal(ACCESS_TOKEN) ? <NavLink to={'/profile'}>Go to profile</NavLink> : <NavLink to={'/register'}>Register</NavLink>)}
                     </li>
                     <li>
-                    {avatar 
+                    {getLocal(ACCESS_TOKEN) 
                         ? <button className='logout_btn' onClick={handleLogout}>Log out</button> 
                         : (getLocal(ACCESS_TOKEN) ? <NavLink to={'/profile'}></NavLink> : <NavLink to={'/login'}>Login</NavLink>)}
                     </li>

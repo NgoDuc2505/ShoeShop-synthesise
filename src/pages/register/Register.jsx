@@ -4,7 +4,6 @@ import React from 'react';
 //antd
 import { Button, Space } from 'antd';
 //utils
-import formiK, { submitValid } from '../../utils/formik/formikGenerate';
 import useScrollToTop from '../../utils/custom-hook/useScrollToTop';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';

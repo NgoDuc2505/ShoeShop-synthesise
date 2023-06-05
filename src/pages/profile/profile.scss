@@ -32,11 +32,14 @@
             border-radius: 50%;
         }
     };
-    .right_detail{
-       width: 80%;
-       .col-right{
-        padding: 0;
-       }
+    form{
+        width: 80%;
+        .right_detail{
+           width: 100%;
+           .col-right{
+            padding: 0;
+           }
+        }
     }
 
 }
