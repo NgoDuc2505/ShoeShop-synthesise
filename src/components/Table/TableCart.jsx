@@ -1,36 +1,26 @@
 import './CartTable.scss';
-const { Column } = Table;
+//axios
+import axios from 'axios';
 //sweetalert2
 import Swal from 'sweetalert2'
 //antd
 import { Space, Table } from 'antd';
 import { InputNumber } from 'antd';
+const { Column } = Table;
 //react
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //redux
-import { changeCount, removeProdCart, setListCartAfterSubmit, setHistoryOrder } from '/src/redux/redux-slides/productListSlide'
+import { changeCount, removeProdCart, setHistoryOrder } from '/src/redux/redux-slides/productListSlide'
 
 //---------------------------------------------------------------------------------
-const dateJSObject = new Date();
-const orderTimeSet = {
-  year: dateJSObject.getFullYear(),
-  day: dateJSObject.getDate(),
-  month: dateJSObject.getMonth()+1,
-};
-const {day, month, year} = orderTimeSet;
 
 const TableCart = () => {
   const dispatch = useDispatch();
 
-  const { cartList, orderHistoryList } = useSelector(state => state.productReducer);
+  const { cartList } = useSelector(state => state.productReducer);
   const [listOrder, setListOrder] = useState([]);
-  const [listCart, setListCart] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
-
-  useEffect(() => {
-    setListCart(cartList)
-  }, [cartList])
 
   const rowSelection = {
     onChange: (_, selectedRows) => {
@@ -38,21 +28,14 @@ const TableCart = () => {
     }
   };
 
-  const onChangeCount = (id, count, values) => {
-    if (values > 0) {
-      let value = values - count;
-      dispatch(changeCount({ id, value }))
-    }
-  };
-
-  const handleChangeCount = (id, count, value) => {
-    if (count + value > 0) {
+  const handleChangeCount = (id, value) => {
+    if (value > 0) {
       dispatch(changeCount({ id, value }))
     }
   };
 
   const handleDelete = (id) => {
-    const list = listCart.filter((item) => item.id !== id)
+    const list = cartList.filter((item) => item.id !== id)
     Swal.fire({
       title: 'Are you sure to delete this product',
       confirmButtonText: 'Confirm',
@@ -60,7 +43,6 @@ const TableCart = () => {
       denyButtonText: 'Deny'
     }).then((result) => {
       if (result.isConfirmed) {
-        setListCart(list)
         dispatch(removeProdCart(id))
         localStorage.setItem('cart', JSON.stringify(list))
         Swal.fire(
@@ -72,35 +54,55 @@ const TableCart = () => {
     })
   };
 
-  const handleSubmit = () => {
-    let list = listCart.filter(o1 => !listOrder.some(o2 => o1.id === o2.id));
-    let submitedList = listCart.filter(o1 => listOrder.some(o2 => o1.id === o2.id));
-    
+  const handleSubmit = async () => {
+    if (listOrder.length === 0) {
+      return Swal.fire(
+        'Order Empty!',
+        `You haven't select any order!`,
+        'warning'
+      )
+    }
+
+    let ordersSubmit = listOrder.map(item => ({
+      productId: item.id,
+      quantity: item.number
+    }));;
+
     Swal.fire({
       title: 'Are you sure to submit order',
       confirmButtonText: 'Confirm',
       showDenyButton: true,
       denyButtonText: 'Deny'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setListCart(list)
-
-        localStorage.setItem('cart', 
-        JSON.stringify(list))
-        localStorage.setItem('historyArr',
-        JSON.stringify([...orderHistoryList,{list: submitedList, date:{day,month,year}}]))
-
-        dispatch(setListCartAfterSubmit(list))
-        dispatch(setHistoryOrder({list: submitedList, date:{day,month,year}}))
-        
-        Swal.fire(
-          'Success!',
-          'You order have been transfer!',
-          'success'
-        )
-
-      }
     })
+      .then(async (result) => {
+
+        if (result.isConfirmed) {
+          const resp = await axios.post('https://shop.cyberlearn.vn/api/Users/order', {
+            orderDetail: ordersSubmit,
+            email: 'un@gmail.com',
+          });
+
+          listOrder.forEach(item => {
+            dispatch(removeProdCart(item.id))
+          });
+
+          const orderTime = new Date(resp.data.dateTime);
+          const time = {
+            day: orderTime.getDate(),
+            month: orderTime.getMonth() + 1,
+            year: orderTime.getFullYear()
+          }
+
+          dispatch(setHistoryOrder({ list: ordersSubmit, date: time }))
+
+          Swal.fire(
+            'Success!',
+            'You order have been transfer!',
+            'success'
+          )
+
+        }
+      })
   };
 
   return (
@@ -114,7 +116,7 @@ const TableCart = () => {
           type: 'checkbox',
           ...rowSelection,
         }}
-        dataSource={listCart}
+        dataSource={cartList}
         rowKey={"id"}>
         <Column title="ID" dataIndex="id" align='center' />
         <Column title="IMAGE" dataIndex="image" align='center'
@@ -132,13 +134,13 @@ const TableCart = () => {
           render={(_, product) => (
             <Space size={'middle'}>
               <button className='btn-quantity' disabled={!isEdit}
-                onClick={() => handleChangeCount(product.id, product.count, 1)}>+</button>
+                onClick={() => handleChangeCount(product.id, product.count + 1)}>+</button>
               <InputNumber type='number' className='inputCount' size='small' disabled={!isEdit}
                 value={product.count}
-                onChange={(value) => onChangeCount(product.id, product.count, value)}
+                onChange={(value) => handleChangeCount(product.id, value)}
               />
               <button className='btn-quantity' disabled={!isEdit}
-                onClick={() => handleChangeCount(product.id, product.count, -1)}>-</button>
+                onClick={() => handleChangeCount(product.id, product.count - 1)}>-</button>
             </Space>
           )}
         />
