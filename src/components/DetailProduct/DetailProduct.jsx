@@ -2,13 +2,18 @@ import './DetailProduct.scss'
 //react
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 //redux
 import { setToCart } from '/src/redux/redux-slides/productListSlide'
-
+//utils
+import { getLocal } from '/src/utils/localStorage/index.js';
+//constant
+import { ACCESS_TOKEN } from '/src/const/index.js';
 //---------------------------------------------------------------------------------
 
 function DetailProduct() {
+    const accessToken = getLocal(ACCESS_TOKEN)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const params = useParams()
 
@@ -32,8 +37,12 @@ function DetailProduct() {
     }
 
     const addToCart = () => {
-        let cart = { ...productDetail, count }
-        dispatch(setToCart(cart))
+        if(accessToken){
+            let cart = { ...productDetail, count }
+            dispatch(setToCart(cart))
+        }else{
+            confirm('You have to Log in to do this action !') ? navigate('/login') : null
+        }
     }
 
     return (

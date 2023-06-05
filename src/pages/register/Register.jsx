@@ -4,15 +4,57 @@ import React from 'react';
 //antd
 import { Button, Space } from 'antd';
 //utils
-import formiK, { submitValid } from '../../utils/formik/formikGenerate';
 import useScrollToTop from '../../utils/custom-hook/useScrollToTop';
-
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
 //---------------------------------------------------------------------------------
 
 function Register() {
   useScrollToTop()
-  const formik = formiK();
+  // const formik = formiK();
 
+  const regex = {
+    nameByVietnamese: /^[a-z A-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/,
+    password: /^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^& "]).*$/,
+  }
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      name: '',
+      password: '',
+      psConfirm: '',
+      phone: '',
+      gender: false
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().required('Email is required !').email('Email must be valid'),
+      name: Yup.string().matches(regex.nameByVietnamese, 'Name must be valid').required('Name is required !'),
+      phone: Yup.number().required('Phone is required'),
+      password: Yup.string().min(6, 'Min is 6 characters').max(12, 'Max is 12 characters').required('Password can not be empty').matches(regex.password, 'password must contain at least 1 digit, 1 special character, 1 alphabeltic character !'),
+      psConfirm: Yup.string().required('Please confirm your password').oneOf([Yup.ref('password')], 'Passwords must match!')
+    }),
+    onSubmit: async (values) => {
+      try {
+        console.log(values)
+        const resp = await axios({
+          url: 'https://shop.cyberlearn.vn/api/Users/signup',
+          method: 'post',
+          data: {
+            "email": values.email,
+            "password": values.password,
+            "name": values.name,
+            "gender": values.gender,
+            "phone": values.phone
+          }
+        });
+        console.log(resp)
+      } catch (err) {
+        console.log(err)
+      }
+
+    },
+  });
   return (
     <>
       <div className="container">
@@ -34,7 +76,7 @@ function Register() {
 
               <div className="form-group">
                 <label className='label_form' htmlFor="password">Password</label>
-                <input type="password" className='form-control input_form' placeholder='Password' id='password' name='password'
+                <input type="text" className='form-control input_form' placeholder='Password' id='password' name='password'
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
@@ -45,7 +87,7 @@ function Register() {
               <div className="form-group">
                 <label className='label_form' htmlFor="psConfirm">Password confirm</label>
                 <input
-                  type="password"
+                  type="text"
                   className='form-control input_form'
                   placeholder='Password confirm'
                   id='psConfirm'
@@ -70,7 +112,7 @@ function Register() {
 
               <div className="form-group">
                 <label className='label_form' htmlFor="phone">Phone</label>
-                <input type="number" className='form-control input_form' placeholder='Phone' id='phone' name='phone'
+                <input type="text" className='form-control input_form' placeholder='Phone' id='phone' name='phone'
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
@@ -83,9 +125,9 @@ function Register() {
                 <div className="form-check">
                   <label className="form-check-label lable_radio label_form text-center" htmlFor="male">
                     <input className="form-check-input" type="radio" name="gender" id="male"
-                      checked={formik.values.gender === 'true'}
-                      onChange={() => { formik.setFieldValue('gender', 'true') }}
-                      value="true" />
+                      checked={formik.values.gender === true}
+                      onChange={() => { formik.setFieldValue('gender', true) }}
+                      value={true} />
                     <span className="design"></span>
                     <span className='value_gender'>Male</span>
                   </label>
@@ -93,9 +135,9 @@ function Register() {
                 <div className="form-check">
                   <label className="form-check-label lable_radio label_form" htmlFor="female">
                     <input className="form-check-input" type="radio" name="gender" id="female"
-                      checked={formik.values.gender === 'false'}
-                      onChange={() => { formik.setFieldValue('gender', 'false') }}
-                      value='false' />
+                      checked={formik.values.gender === false}
+                      onChange={() => { formik.setFieldValue('gender', false) }}
+                      value={false} />
                     <span className="design"></span>
                     <span className='value_gender'>Female</span>
                   </label>
@@ -103,7 +145,12 @@ function Register() {
               </div>
 
               <Space wrap>
-                <Button className='btn_submit_register' shape='round' type="submit" onClick={() => { submitValid(formik, ['*']) }}>Submit</Button>
+                <Button
+                  className='btn_submit_register'
+                  shape='round' type="submit"
+                  // onClick={() => { submitValid(formik, ['*']) }}
+                  htmlType='submit'
+                >Submit</Button>
               </Space>
             </div>
           </form>

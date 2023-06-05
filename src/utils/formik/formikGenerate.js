@@ -23,7 +23,8 @@ const formiK = ()=>{
           psConfirm: Yup.string().required('Please confirm your password').oneOf([Yup.ref('password')],'Passwords must match!')
         }),
         onSubmit: values => {
-          alert(JSON.stringify(values, null, 2));
+          // alert(JSON.stringify(values, null, 2));
+          console.log(values)
         },
       });
 

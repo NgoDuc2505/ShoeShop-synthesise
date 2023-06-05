@@ -4,17 +4,56 @@ import './../register/register.scss';
 import { Button, Space } from 'antd';
 //react
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 //utils
-import formiK, { submitValid } from '../../utils/formik/formikGenerate';
+// import formiK, { submitValid } from '../../utils/formik/formikGenerate';
 import useScrollToTop from '../../utils/custom-hook/useScrollToTop';
 
+//libaries
+import { useFormik} from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+
+//utils
+import { setLocal } from '/src/utils/localStorage/index.js';
+//constant
+import { ACCESS_TOKEN } from '/src/const/index.js'
 //---------------------------------------------------------------------------------
 
 function Login() {
+  const navigate = useNavigate()
   useScrollToTop()
-  const formik = formiK();
-
+  // const formik = formiK();
+  const regex = {
+    nameByVietnamese : /^[a-z A-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/,
+    password:/^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^& "]).*$/,
+  }
+  const formik = useFormik({
+    initialValues:{
+      email:'',
+      password:'',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().required('this field is required !').email('Email must be valid'),
+      password: Yup.string().min(6,'Min is 6 characters').max(12,'Max is 12 characters').required('Password can not be empty').matches(regex.password,'password must contain at least 1 digit, 1 special character, 1 alphabeltic character !'),
+    }),
+    onSubmit: async (values) => {
+      try{
+        const resp = await axios.post(
+          'https://shop.cyberlearn.vn/api/Users/signin',
+          {
+            email: values.email,
+            password: values.password
+          }
+        )
+          setLocal(ACCESS_TOKEN,resp.data.content.accessToken)
+          navigate('/profile')
+      }catch(err){
+        console.log(err)
+      }
+     
+    },
+  });
   return (
     <>
       <div className="container">
@@ -49,8 +88,8 @@ function Login() {
                 <Button
                   className='btn_submit_login'
                   shape='round'
-                  type="submit"
-                  onClick={() => { submitValid(formik, ['email', 'password']) }}
+                  htmlType='submit'
+                  // onClick={() => { submitValid(formik, ['email', 'password']) }}
                 >
                   Log in
                 </Button>

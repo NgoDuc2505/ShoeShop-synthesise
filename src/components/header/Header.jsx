@@ -1,15 +1,35 @@
+//react
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+// public_icons
 import Logo from '/src/assets/icons/logo';
-import SearchIcon from '/src/assets/icons/SearchIcon'
+// scss
 import './header.scss'
-import { useSelector } from 'react-redux';
+//utils
+import { getLocal, deleteLocalStrgKey } from '/src/utils/localStorage/index.js';
+//constant
+import { ACCESS_TOKEN} from '/src/const/index.js';
+import { logoutUser } from '/src/redux/redux-slides/userReduxSlides';
 
+
+//======================================================
 
 function Header() {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { cartList } = useSelector(state => state.productReducer)
     const sumCart = cartList?.reduce((sum, product) => sum + product.count,0) || 0
-
+    const { profileData } = useSelector((state)=>state.userReduxSlides)
+    const {avatar} = profileData
+    const handleNavigate = ()=>{
+        navigate('/profile')
+    }
+    const handleLogout=()=>{
+        deleteLocalStrgKey(ACCESS_TOKEN)
+        dispatch(logoutUser())
+        navigate('/login')
+    }
   return (
     <>
     
@@ -21,15 +41,6 @@ function Header() {
             </div>
            <div className="right_header">
                 <ul>
-                    {/* <li>
-                        <NavLink to={'/'}>Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to={'/profile'}>Profile</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to={'/detail'}>Detail</NavLink>
-                    </li> */}
                     <li>
                         <NavLink to={'/search'}>
                             <div className="li_wrapper">
@@ -47,10 +58,14 @@ function Header() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={'/register'}>Register</NavLink>
+                        {avatar 
+                        ? <img onClick={handleNavigate} style={{width:40, height:40, borderRadius:'50%'}} src={avatar} alt="..." /> 
+                        : (getLocal(ACCESS_TOKEN) ? <NavLink to={'/profile'}>Go to profile</NavLink> : <NavLink to={'/register'}>Register</NavLink>)}
                     </li>
                     <li>
-                        <NavLink to={'/login'}>Login</NavLink>
+                    {getLocal(ACCESS_TOKEN) 
+                        ? <button className='logout_btn' onClick={handleLogout}>Log out</button> 
+                        : (getLocal(ACCESS_TOKEN) ? <NavLink to={'/profile'}></NavLink> : <NavLink to={'/login'}>Login</NavLink>)}
                     </li>
                 </ul>
            </div>
