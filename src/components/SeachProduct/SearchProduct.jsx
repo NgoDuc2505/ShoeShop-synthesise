@@ -1,30 +1,61 @@
-import React, { useState } from 'react';
 import './SearchProduct.scss'
+//lodash
+import _ from 'lodash';
+//antd
+import { Select } from 'antd';
+import { Empty } from 'antd';
+//react
+import React, { useEffect, useState } from 'react';
+//Component
+import ListItem from '../listItem/ListItem';
+
+//---------------------------------------------------------------------------------
 
 const sort = [
     {
-        value: 'decrease',
-        label: 'decrease',
+        value: 'desc',
+        label: 'Decrease',
     },
     {
-        value: 'ascending',
-        label: 'ascending',
+        value: 'asc',
+        label: 'Ascending',
     },
 ];
 
-function SearchProduct() {
+//---------------------------------------------------------------------------------
+
+function SearchProduct(props) {
+    const { listProductSearch } = props;
+    const [listSort, setListSort] = useState([]);
+    const [filter, setFilter] = useState('desc');
+
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
+        setFilter(value);
     };
 
+    useEffect(() => {
+        setListSort(_.orderBy(listProductSearch, ['price'], [filter]))
+    }, [filter, listProductSearch])
+
     return (
-        <div className='search-result'>
-            <p>Price</p>
-            <select className="search-select">
-                <option className='search-option' value="decrease">decrease</option>
-                <option className='search-option' value="ascending">ascending</option>
-            </select>
-        </div>
+        <>
+            <div className='search-result'>
+                <p>Price</p>
+                <Select className='input-filter'
+                    defaultValue="desc"
+                    style={{
+                        width: 445,
+                    }}
+                    onChange={handleChange}
+                    options={sort}
+                />
+            </div>
+            {listSort.length === 0 ?
+                <Empty /> :
+                <ListItem listProductSearch={listSort} search={true} />
+            }
+        </>
+
     )
 }
 

@@ -7,11 +7,13 @@ import CardProduct from '../CardProduct/CardProduct'
 
 //---------------------------------------------------------------------------------
 
-function ListItem() {
+function ListItem(props) {
+  const { search, listProductSearch } = props;
   const { listProduct, favoriteProductList } = useSelector((state) => state.productReducer)
+
   return (
     <div className="list-product">
-      {listProduct.map((product) =>
+      {(search ? listProductSearch : listProduct).map((product) =>
         <CardProduct key={product.id} product={product} show={true} favoriteProd={favoriteProductList} />
       )}
     </div>
