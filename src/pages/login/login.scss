@@ -21,12 +21,26 @@
     background-color: #1877F2;
     border-radius: 2.1rem;
     padding: 1.1rem 4rem;
+    display: flex;
+    justify-content: center;
     a{
         color: #fff;
         font-weight: 400;
         font-size: 2rem;
         line-height: 2.4rem;
         img{
+            margin-right: 3.2rem;
+        };
+    }
+    button{
+        height: 100%;
+        color: #fff;
+        background-color: transparent;
+        border: unset;
+        font-weight: 400;
+        font-size: 2rem;
+        line-height: 2.4rem;
+        i{
             margin-right: 3.2rem;
         };
     }

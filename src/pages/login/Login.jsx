@@ -10,7 +10,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import useScrollToTop from '../../utils/custom-hook/useScrollToTop';
 
 //libaries
-import { useFormik} from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -20,27 +20,32 @@ import { setLocal } from '/src/utils/localStorage/index.js';
 import { ACCESS_TOKEN } from '/src/const/index.js'
 //sweet alert
 import Swal from 'sweetalert2';
+import FacebookLogin from 'react-facebook-login';
+
 //---------------------------------------------------------------------------------
 
 function Login() {
+  const responseFacebook = (resp) => {
+    console.log(resp)
+  }
   const navigate = useNavigate()
   useScrollToTop()
   // const formik = formiK();
   const regex = {
-    nameByVietnamese : /^[a-z A-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/,
-    password:/^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^& "]).*$/,
+    nameByVietnamese: /^[a-z A-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/,
+    password: /^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^& "]).*$/,
   }
   const formik = useFormik({
-    initialValues:{
-      email:'',
-      password:'',
+    initialValues: {
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
       email: Yup.string().required('this field is required !').email('Email must be valid'),
-      password: Yup.string().min(6,'Min is 6 characters').max(12,'Max is 12 characters').required('Password can not be empty').matches(regex.password,'password must contain at least 1 digit, 1 special character, 1 alphabeltic character !'),
+      password: Yup.string().min(6, 'Min is 6 characters').max(12, 'Max is 12 characters').required('Password can not be empty').matches(regex.password, 'password must contain at least 1 digit, 1 special character, 1 alphabeltic character !'),
     }),
     onSubmit: async (values) => {
-      try{
+      try {
         const resp = await axios.post(
           'https://shop.cyberlearn.vn/api/Users/signin',
           {
@@ -48,14 +53,14 @@ function Login() {
             password: values.password
           }
         )
-        setLocal(ACCESS_TOKEN,resp.data.content.accessToken)
+        setLocal(ACCESS_TOKEN, resp.data.content.accessToken)
         navigate('/profile')
         Swal.fire(
           'Success!',
           'You have been navigated to your profile.',
           'success'
         )
-      }catch(err){
+      } catch (err) {
         console.log(err)
         Swal.fire(
           'Error!',
@@ -63,7 +68,7 @@ function Login() {
           'error'
         )
       }
-     
+
     },
   });
   return (
@@ -101,17 +106,24 @@ function Login() {
                   className='btn_submit_login'
                   shape='round'
                   htmlType='submit'
-                  // onClick={() => { submitValid(formik, ['email', 'password']) }}
+                // onClick={() => { submitValid(formik, ['email', 'password']) }}
                 >
                   Log in
                 </Button>
               </Space>
             </div>
             <div className="form-group-login facebook-login">
-              <NavLink to={'/continue-facebook'}>
+              {/* <NavLink to={'/continue-facebook'}>
                 <img src="src/assets/icons/facebook.svg" alt="facebook" />
                 Continue with Facebook
-              </NavLink>
+              </NavLink> */}
+              <FacebookLogin
+                appId="552885443724769"
+                autoLoad={true}
+                fields="name,email,picture"
+                cssClass="my-facebook-button-class"
+                icon="fa-facebook"
+                callback={responseFacebook} />
             </div>
           </form>
         </div>
