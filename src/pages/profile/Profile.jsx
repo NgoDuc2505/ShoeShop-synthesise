@@ -34,8 +34,8 @@ function Profile() {
   }, [])
   const { favoriteProductList, orderHistoryList } = useSelector((state) => state.productReducer);
   const { profileData } = useSelector((state) => state.userReduxSlides)
-  const { avatar, gender, password, name, phone, email, orderHistory } = profileData
-
+  const { avatar, gender, password, name, phone, email, ordersHistory } = profileData
+  console.log(avatar)
   const regex = {
     nameByVietnamese: /^[a-z A-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/,
     password: /^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^& "]).*$/,
@@ -102,8 +102,10 @@ function Profile() {
           <div className="information_area">
             <div className="left_detail">
               <img src={avatar} alt="user" />
-              <input type="text" onChange={handleChangeAvaLink}/>
-              <button onClick={handleUploadAvatar}>LInk update</button>
+              <div className="action-avatar">
+              <input type="text" onChange={handleChangeAvaLink} placeholder='avatar URL' className='imgUrl'/>
+              <button className='btn-imgUpdate' onClick={handleUploadAvatar}>^</button>
+              </div>
             </div>
             <form action="" onSubmit={formik.handleSubmit}>
               <div className="right_detail row">
@@ -192,8 +194,8 @@ function Profile() {
               </ul>
               <div className="tab-content" id="myTabContent">
                 <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  {orderHistoryList.length > 0
-                    ? <PaginationWrapper itemsPerPage={4} items={orderHistoryList} />
+                  {ordersHistory?.length > 0
+                    ? <PaginationWrapper itemsPerPage={4} items={ordersHistory} />
                     : <EmptyDataDisplay />}
                 </div>
                 <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">

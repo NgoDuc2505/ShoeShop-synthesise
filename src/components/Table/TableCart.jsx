@@ -17,7 +17,7 @@ import { changeCount, removeProdCart, setHistoryOrder } from '/src/redux/redux-s
 
 const TableCart = () => {
   const dispatch = useDispatch();
-
+  const { profileData } = useSelector((state) => state.userReduxSlides)
   const { cartList } = useSelector(state => state.productReducer);
   const [listOrder, setListOrder] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
@@ -64,8 +64,8 @@ const TableCart = () => {
     }
 
     let ordersSubmit = listOrder.map(item => ({
-      productId: item.id,
-      quantity: item.number
+      productId: `${item.id}`,
+      quantity: item.count
     }));;
 
     Swal.fire({
@@ -79,7 +79,7 @@ const TableCart = () => {
         if (result.isConfirmed) {
           const resp = await axios.post('https://shop.cyberlearn.vn/api/Users/order', {
             orderDetail: ordersSubmit,
-            email: 'un@gmail.com',
+            email: profileData.email,
           });
 
           listOrder.forEach(item => {
@@ -93,7 +93,7 @@ const TableCart = () => {
             year: orderTime.getFullYear()
           }
 
-          dispatch(setHistoryOrder({ list: ordersSubmit, date: time }))
+          dispatch(setHistoryOrder({ list: listOrder, date: time }))
 
           Swal.fire(
             'Success!',
