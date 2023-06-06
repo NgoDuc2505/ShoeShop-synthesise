@@ -36,7 +36,6 @@ function Register() {
     }),
     onSubmit: async (values) => {
       try {
-        console.log(values)
         const resp = await axios({
           url: 'https://shop.cyberlearn.vn/api/Users/signup',
           method: 'post',
@@ -48,11 +47,9 @@ function Register() {
             "phone": values.phone
           }
         });
-        console.log(resp)
       } catch (err) {
         console.log(err)
       }
-
     },
   });
   return (

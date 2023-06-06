@@ -1,10 +1,7 @@
 // react
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
 // component
-import InputField from '../../components/input-field/InputField'
-import RadioGroup from '../../components/input-field/RadioGroup'
 import CardProduct from '../../components/CardProduct/CardProduct';
 import { profileThunkAction } from '../../redux/redux-slides/userReduxSlides';
 
@@ -72,7 +69,6 @@ function Profile() {
   });
   const handleChangeAvaLink=(e)=>{
     setImgLink(e.target.value)
-    
   }
   const handleUploadAvatar =  async()=>{
    try{
@@ -114,7 +110,7 @@ function Profile() {
                     <input type="text" className='form-control input_form' placeholder='Password' id='password' name='password'
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={(formik.values.password === '_' && !formik.touched.password) ? password : formik.values.password}
+                      value={(formik.values.password === '_' && !formik.touched.password) ? (password ?? '************') : formik.values.password}
                     />
                     {formik.touched.password && formik.errors.password && <p className='validate'>{formik.errors.password}</p>}
                   </div>

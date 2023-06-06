@@ -46,8 +46,8 @@ function Login() {
             password: values.password
           }
         )
-          setLocal(ACCESS_TOKEN,resp.data.content.accessToken)
-          navigate('/profile')
+        setLocal(ACCESS_TOKEN,resp.data.content.accessToken)
+        navigate('/profile')
       }catch(err){
         console.log(err)
       }
