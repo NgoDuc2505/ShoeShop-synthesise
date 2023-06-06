@@ -37,12 +37,8 @@ function DetailProduct() {
     }
 
     const addToCart = () => {
-        if(accessToken){
-            let cart = { ...productDetail, count }
-            dispatch(setToCart(cart))
-        }else{
-            confirm('You have to Log in to do this action !') ? navigate('/login') : null
-        }
+        let cart = { ...productDetail, count }
+        dispatch(setToCart(cart))
     }
 
     return (
