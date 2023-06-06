@@ -12,6 +12,7 @@ import { setProductDetail } from '/src/redux/redux-slides/productListSlide'
 //component
 import DetailProduct from '/src/components/DetailProduct/DetailProduct'
 import CardProduct from '/src/components/CardProduct/CardProduct'
+import ListItem from '../../components/listItem/ListItem'
 
 //---------------------------------------------------------------------------------
 
@@ -36,12 +37,8 @@ function Detail() {
 		<div>
 			<DetailProduct />
 			<h3 className='relate-product'>- Relate Product -</h3>
-			<div className="row" style={{marginLeft:'8.4rem',marginBottom:'10.6rem'}}>
-			{productDetail.relatedProducts?.map((product) => 
-						<div className="col-4" key={product.id}>
-							<CardProduct product={product}  />
-						</div>
-			)}
+			<div className="row" style={{ marginLeft: '8.4rem', marginBottom: '10.6rem' }}>
+				<ListItem listProductOption={productDetail.relatedProducts || []} option />
 			</div>
 		</div>
 	)

@@ -52,7 +52,7 @@ function SearchProduct(props) {
             </div>
             {listSort.length === 0 ?
                 <Empty /> :
-                <ListItem listProductSearch={listSort} search={true} />
+                <ListItem listProductOption={listSort} option />
             }
         </>
 
