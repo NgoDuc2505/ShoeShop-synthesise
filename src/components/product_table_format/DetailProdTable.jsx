@@ -8,8 +8,8 @@ function DetailProdTable(props) {
         <td className='td_img'><img src={image} alt={`..${name}`} /></td>
         <td className='td_name'>{name}</td>
         <td>{price} $</td>
-        <td className='td_quantity'><span>{count}</span></td>
-        <td>{price*count} $</td>
+        <td className='td_quantity'><span>{count || '****'}</span></td>
+        <td>{price*count || "****"} $</td>
     </tr>
   )
 }

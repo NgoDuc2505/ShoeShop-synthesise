@@ -2,11 +2,11 @@ import React from 'react'
 import DetailProdTable from './DetailProdTable'
 import './tableFormat.scss'
 function ProdTable(props) {
-    const {list, date} = props.item;
+    const {orderDetail, date} = props.item;
   return (
     <>
         <div className="prod_table">
-            <p className='status_table'>{`+ Orders have been placed on ${date.day} - ${date.month} - ${date.year}`}</p>
+            <p className='status_table'>{`+ Orders have been placed on ${date}`}</p>
             <table>
                 <thead>
                     <tr className='table-row'>
@@ -19,7 +19,7 @@ function ProdTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {list.map((item,index)=>{
+                    {orderDetail.map((item,index)=>{
                     return <DetailProdTable key={index} shoe={item}/>
                     })}
                 </tbody>
