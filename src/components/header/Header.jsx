@@ -11,6 +11,8 @@ import { getLocal, deleteLocalStrgKey } from '/src/utils/localStorage/index.js';
 //constant
 import { ACCESS_TOKEN } from '/src/const/index.js';
 import { logoutUser } from '/src/redux/redux-slides/userReduxSlides';
+//sweet alert
+import Swal from 'sweetalert2';
 
 
 //======================================================
@@ -28,6 +30,11 @@ function Header() {
         deleteLocalStrgKey(ACCESS_TOKEN)
         dispatch(logoutUser())
         navigate('/login')
+        Swal.fire(
+            'Success!',
+            'You have been navigated to Login.',
+            'success'
+          )
     }
     return (
         <>

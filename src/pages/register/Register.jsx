@@ -8,6 +8,9 @@ import useScrollToTop from '../../utils/custom-hook/useScrollToTop';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+// sweet alert
+import Swal from 'sweetalert2';
+
 //---------------------------------------------------------------------------------
 
 function Register() {
@@ -47,8 +50,18 @@ function Register() {
             "phone": values.phone
           }
         });
+        Swal.fire(
+          'Success!',
+          'Your profile has been created.',
+          'success'
+        )
       } catch (err) {
         console.log(err)
+        Swal.fire(
+          'Error!',
+          `${err.response.data.message} !`,
+          'error'
+        )
       }
     },
   });

@@ -18,6 +18,8 @@ import axios from 'axios';
 import { setLocal } from '/src/utils/localStorage/index.js';
 //constant
 import { ACCESS_TOKEN } from '/src/const/index.js'
+//sweet alert
+import Swal from 'sweetalert2';
 //---------------------------------------------------------------------------------
 
 function Login() {
@@ -48,8 +50,18 @@ function Login() {
         )
         setLocal(ACCESS_TOKEN,resp.data.content.accessToken)
         navigate('/profile')
+        Swal.fire(
+          'Success!',
+          'You have been navigated to your profile.',
+          'success'
+        )
       }catch(err){
         console.log(err)
+        Swal.fire(
+          'Error!',
+          `${err.response.data.message} !`,
+          'error'
+        )
       }
      
     },

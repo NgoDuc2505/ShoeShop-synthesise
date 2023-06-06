@@ -21,6 +21,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 //services
 import axios from 'axios';
+// sweet alert
+import Swal from 'sweetalert2';
 //----------------------------------------------------------------------
 
 function Profile() {
@@ -61,8 +63,18 @@ function Profile() {
           headers:{
             Authorization: `Bearer ${getLocal(ACCESS_TOKEN)}`
           }
-        })
+        });
+        Swal.fire(
+          'Success!',
+          `${resp.data.content}`,
+          'success'
+        )
       }catch(error){
+        Swal.fire(
+          'Error!',
+          `${error.response.data.message} !`,
+          'error'
+        )
         throw Error(error)
       }
     }
