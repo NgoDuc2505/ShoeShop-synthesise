@@ -119,7 +119,7 @@ function Login() {
               </NavLink> */}
               <FacebookLogin
                 appId="552885443724769"
-                autoLoad={true}
+                autoLoad={false}
                 fields="name,email,picture"
                 cssClass="my-facebook-button-class"
                 icon="fa-facebook"

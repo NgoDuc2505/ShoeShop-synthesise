@@ -6,7 +6,6 @@ const historyOrderList = localStorage.getItem('historyArr') ? JSON.parse(localSt
 const initialState = {
     listProduct: [],
     productDetail: {},
-    favoriteProductList: [],
     cartList: listCart,
     orderHistoryList: historyOrderList,
 }
@@ -20,15 +19,6 @@ const ProductSlice = createSlice({
         },
         setProductDetail: (state, action) => {
             state.productDetail = action.payload
-        },
-        setFavoriteProductList: (state, action) => {
-            state.favoriteProductList.push(action.payload)
-        },
-        removeFavoriteProduct: (state, action) => {
-            const indexById = state.favoriteProductList.findIndex((prod) => {
-                return prod.id === action.payload
-            });
-            state.favoriteProductList.splice(indexById, 1)
         },
         setHistoryOrder: (state, action) => {
             state.orderHistoryList.push(action.payload)

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 // component
 import CardProduct from '../../components/CardProduct/CardProduct';
-import { profileThunkAction } from '../../redux/redux-slides/userReduxSlides';
+import { profileThunkAction, profileFavoriteThunkAction } from '../../redux/redux-slides/userReduxSlides';
 
 // scss
 import './profile.scss'
@@ -27,15 +27,18 @@ import Swal from 'sweetalert2';
 
 function Profile() {
   const [imgLink,setImgLink] = useState('')
+  const [change, setChange] = useState(false);
   useScrollToTop()
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(profileThunkAction())
   }, [])
+  useEffect(()=>{
+    dispatch(profileFavoriteThunkAction())
+  },[change])
   const { favoriteProductList, orderHistoryList } = useSelector((state) => state.productReducer);
-  const { profileData } = useSelector((state) => state.userReduxSlides)
-  const { avatar, gender, password, name, phone, email, ordersHistory } = profileData
-  console.log(avatar)
+  const { profileData, favoriteList } = useSelector((state) => state.userReduxSlides);
+  const { avatar, gender, password, name, phone, email, ordersHistory } = profileData;
   const regex = {
     nameByVietnamese: /^[a-z A-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/,
     password: /^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^& "]).*$/,
@@ -201,9 +204,9 @@ function Profile() {
                 <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                   <div className="favorite_list">
                     {
-                      favoriteProductList.length > 0
-                        ? favoriteProductList?.map((item, index) => {
-                          return (<CardProduct key={index} product={item} show={false} />)
+                      favoriteList.length > 0
+                        ? favoriteList?.map((item, index) => {
+                          return (<CardProduct key={index} product={item} setChange={setChange} change={change} />)
                         })
                         : <EmptyDataDisplay />
                     }

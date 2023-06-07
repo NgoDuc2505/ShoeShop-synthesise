@@ -9,18 +9,23 @@ import { axiosWithAuth } from '../../services/services.config';
 //------------------------------------------------------
 const initialState = {
     profileData:{},
-    accessToken:'',
-
+    favoriteList:[],
 }
 
 export const profileThunkAction = createAsyncThunk(
     'userReduxSlides/profileThunkAction',
     async () =>{
-        const resp = await axiosWithAuth("/Users/getProfile");
+        const resp = await axiosWithAuth.post("/Users/getProfile");
         return resp;
     }
 )
-
+export const profileFavoriteThunkAction = createAsyncThunk(
+    'userReduxSlides/profileFavoriteThunkAction',
+    async ()=>{
+        const resp = await axiosWithAuth.get("/Users/getproductfavorite");
+        return resp;
+    }
+)
 const userReduxSlides = createSlice({
   name: 'userReduxSlides',
   initialState,
@@ -35,7 +40,11 @@ const userReduxSlides = createSlice({
         (state,action)=>{
             state.profileData = action.payload.data.content;
         }
-        )
+        ),
+    builder.addCase(profileFavoriteThunkAction.fulfilled,
+        (state,action) =>{
+            state.favoriteList = action.payload.data.content.productsFavorite;
+        })
   }
 });
 
