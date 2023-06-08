@@ -78,3 +78,29 @@
     font-size: 1.4rem;
     line-height: 1.6rem;
 }
+//------------------RESPONSIVE-------------------
+@media screen and (max-width: 1024px) {
+    .register_body{
+        .input_form{
+            width: 100%;
+        }
+    }
+    .form-check{
+        padding-right: 0.5rem;
+    }
+};
+
+@media screen and (max-width: 576.98px) {
+    .gender_choosen{
+        flex-wrap: unset;
+        .lable_gender{
+            margin-right: unset;
+        }
+        .form-check{
+            padding: 0;
+        }
+        .value_gender{
+            font-size: 1.2rem;
+        }
+    }
+}
