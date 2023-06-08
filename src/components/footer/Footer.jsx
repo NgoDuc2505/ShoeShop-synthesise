@@ -18,7 +18,7 @@ function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className="col-4">
+                <div className="col-4 col-border">
                 <div className="footer-content footer-content-betweenPosition">
                         <p className='footer-title'>SUPPORT</p>
                         <ul>
