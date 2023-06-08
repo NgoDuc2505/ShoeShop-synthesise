@@ -53,3 +53,26 @@
     box-shadow: 0px 4px 5px 0px #00000024;
 
 }
+//-----------RESPONSIVE------------------
+
+@media screen and (max-width: 576.98px) {
+    .login_header{
+        .page_title{
+            padding-left: 2rem;
+        }
+    }
+    .form-group-login{
+        width: 80%;
+        margin: auto;
+        margin-bottom: 2.2rem;
+        .input_form{
+            width: 100%;
+        }
+    };
+    .facebook-login{
+        height: 5.3rem;
+        button{
+            font-size: 1.6rem;
+        }
+    }
+}

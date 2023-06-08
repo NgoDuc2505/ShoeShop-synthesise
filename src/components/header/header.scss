@@ -75,3 +75,29 @@ header{
     border-radius: 50px;
     border: transparent 0.5px solid;
 }
+///--------------RESPONSIVE------------------
+@media screen and (max-width: 576.98px) {
+    .type_bar{
+        padding-left: 2.4rem;
+    }
+    .right_header{
+        ul{
+            li{
+                font-size: 1.5rem;
+                a{
+                    img{
+                        width: 3rem;
+                        height: 3rem;
+                    }
+                };
+                p{
+                    margin: 0;
+                }
+            }
+        }
+        .li_wrapper{
+            display: flex;
+        }
+    }
+      
+}
