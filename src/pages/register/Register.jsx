@@ -67,7 +67,7 @@ function Register() {
   });
   return (
     <>
-      <div className="container">
+      <div className="container register-wrapper">
         <div className="register_header">
           <p className='page_title'>Register</p>
         </div>
