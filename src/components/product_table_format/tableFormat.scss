@@ -48,4 +48,22 @@
         }
     }
 }
-
+//------------------RESPONSIVE-------------------
+@media screen and (max-width: 768px) {
+    .prod_table{
+        padding-left: unset;
+    }
+    .status_table {
+        font-size: 1.6rem;
+    }
+}
+@media screen and (max-width: 576.98px) {
+    .prod_table{
+        td{
+            font-size: 1.6rem;
+        }
+        .status_table{
+            font-size: 1.4rem;
+        }
+    }   
+}

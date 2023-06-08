@@ -132,7 +132,7 @@ function Profile() {
                     {formik.touched.password && formik.errors.password && <p className='validate'>{formik.errors.password}</p>}
                   </div>
                 </div>
-                <div className="col-6 col-right">
+                <div className="col-6 col-right col-right-relative">
                 <div className="form-group">
                 <label className='label_form' htmlFor="name">Name</label>
                 <input type="text" className='form-control input_form' placeholder='Name' id='name' name='name'
@@ -202,11 +202,11 @@ function Profile() {
                     : <EmptyDataDisplay />}
                 </div>
                 <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                  <div className="favorite_list">
+                  <div className="favorite_list row">
                     {
                       favoriteList.length > 0
                         ? favoriteList?.map((item, index) => {
-                          return (<CardProduct key={index} product={item} setChange={setChange} change={change} />)
+                          return (<div className="check" key={index} ><CardProduct product={item} setChange={setChange} change={change} /></div>)
                         })
                         : <EmptyDataDisplay />
                     }

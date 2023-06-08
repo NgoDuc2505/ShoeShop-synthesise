@@ -123,6 +123,7 @@
         display: flex;
         gap: 4.5rem;
         flex-wrap: wrap;
+        justify-content: center;
     }
 }
 .action-avatar{
@@ -185,4 +186,161 @@
         }
     }
 }
+//-------------RESPONSIVE--------------------------
+@media screen and (max-width: 1400px) {
+    .pill_tab{
+        .favorite_list{
+            gap: 6.5rem;
+        }
+    }
+    .information_area{
+        form{
+            .right_detail{
+               .col-right{
+                padding-left: 1rem;
+               }
+               .input_form{
+                width: 100%;
+                }
+                .gender_choosen{
+                    flex-wrap: unset;
+                    margin-top: 2rem;
+                }
+            }
+        }
+        .left_detail{
+            img{
+                width: 22.5rem;
+            }
+        }
+    }
+};
 
+@media screen and (max-width: 1280px) {
+    .pill_tab{
+        .favorite_list{
+            gap: 4.5rem;
+        }
+    }
+    .radio-group{
+        .btn_submit_login{
+            margin-left: 5rem;
+        }
+    }
+}
+@media screen and (max-width: 1060px) {
+    .radio-group{
+        .btn_submit_login{
+            margin-left: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 993px) {
+    .information_area{
+        height: 35rem;
+        .left_detail{
+            margin-left: 1.4rem;
+        }
+        form{
+            .right_detail{
+                .gender_choosen{
+                    .lable_gender{
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+    .col-right-relative{
+        position: relative;
+        .radio-group{
+            .btn_submit_login{
+                margin: 0;
+                position: absolute;
+                bottom: -2rem;
+                right: 0;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .information_area{
+        margin: 2.6rem 2.4rem 0;
+        .left_detail{
+            margin-right: 2.8rem;
+            margin-left: 0.4rem;
+        }
+        .radio-group{
+            transform: translateX(-50%);
+        }
+        .col-right-relative{
+            .radio-group{
+                .btn_submit_login{
+                    right: -50%;
+                }
+            }
+        }
+    };
+    .pill_tab{
+        .nav-tabs{
+            .nav-link{
+                font-size: 2.2rem;
+            }
+        }
+    }
+}
+@media screen and (max-width: 576.98px) {
+    .pill_tab{
+        padding: 1.9rem 1.4rem 0;
+        .nav-tabs{
+            .nav-link{
+                font-size: 1.6rem;
+            }
+            .nav-link-2{
+                padding-right: 3.2rem;
+            }
+        }
+        
+    }
+    .profile_title{
+        p{
+            width: 70%;
+        }
+    }
+    .information_area{
+        flex-direction: column;
+        height: 50rem;
+        .left_detail{
+            height: 21.5rem;
+            width: 100%;
+            img{
+                width: 16.5rem;
+                height: 16.5rem;
+                margin-left: 50%;
+                transform: translateX(-50%);
+            }
+            .action-avatar{
+                width: 50%;
+                margin: 1rem auto;
+            }
+        }
+        form{
+            width: 100%;
+        }
+        .radio-group{
+            transform: translateX(-90%);
+        }
+        .col-right-relative{
+            .radio-group{
+                .btn_submit_login{
+                    bottom: 6rem;
+                }
+                .btn_submit_login{
+                    right: -90%;
+                }
+            }
+        }
+    }
+}
