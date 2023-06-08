@@ -8,13 +8,14 @@ import heartBorder from "/src/assets/icons/heartBoder.svg";
 import axios from 'axios';
 import { getLocal } from '/src/utils/localStorage/index.js';
 import { ACCESS_TOKEN } from '/src/const/index.js';
+import { useSelector } from 'react-redux';
 //---------------------------------------------------------------------------------
 
 function CardProduct(props) {
-    const { product, listFavor, setChange, change } = props;
+    const { product, listFavor, setChange, change} = props;
     const [isFavor, setIsFavor] = useState(false);
     const [imgSrc, setImgSrc] = useState(heartBorder)
-
+    const {favoriteList } = useSelector((state) => state.userReduxSlides);
     useEffect(() => {
         if (listFavor?.find((favorite) => favorite.id === product.id)) {
             setIsFavor(true);
@@ -24,6 +25,15 @@ function CardProduct(props) {
             setImgSrc(heartBorder)
         }
     }, [listFavor])
+    useEffect(()=>{
+        if (favoriteList?.find((favorite) => favorite.id === product.id)) {
+            setIsFavor(true);
+            setImgSrc(heartFull)
+        } else {
+            setIsFavor(false);
+            setImgSrc(heartBorder)
+        }
+    },[favoriteList])
 
     const changFavorite = async (link) => {
         try {
@@ -58,7 +68,7 @@ function CardProduct(props) {
             <div className="card-product-interact ">
 
                 <NavLink to={`/detail/` + product.id} className='card-product-btn buy-now'>Buy now</NavLink>
-                <button className='card-product-btn price'>{product.price}$</button>
+                <button className='card-product-btn price'>{product.price ? product.price : 'Check this '}$</button>
             </div>
             <button className='love-btn' onClick={() => handleChangeFavorite(product.id)}><img src={imgSrc} alt="..." /></button>
         </div>

@@ -14,7 +14,7 @@ axiosWithAuth.interceptors.request.use(
         config.headers={
             Authorization: `Bearer ${getLocal(ACCESS_TOKEN)}`
         };
-        config.method = 'post';
+        // config.method = 'post';
 
         return config
     },
