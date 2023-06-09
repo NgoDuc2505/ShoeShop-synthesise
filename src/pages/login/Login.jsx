@@ -64,7 +64,7 @@ function Login() {
         console.log(err)
         Swal.fire(
           'Error!',
-          `${err.response.data.message} !`,
+          `Wrong email or password!`,
           'error'
         )
       }

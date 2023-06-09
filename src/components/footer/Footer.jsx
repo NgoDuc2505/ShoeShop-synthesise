@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './footer.scss'
 import { NavLink } from 'react-router-dom'
+//utils
+import { getLocal } from '/src/utils/localStorage/index.js';
+//constant
+import { ACCESS_TOKEN } from '/src/const/index.js'
+import { useSelector } from 'react-redux';
 
+//----------------------------------------------------
 function Footer() {
+    const { profileData} = useSelector((state) => state.userReduxSlides);
+    useEffect(()=>{},[profileData])
   return (
     <div>
         <div className="footer-wrapper">
@@ -33,8 +41,12 @@ function Footer() {
                 <div className="footer-content">
                         <p className='footer-title'>REGISTER</p>
                         <ul>
-                            <li><NavLink to={'/register'}>Register</NavLink></li>
-                            <li><NavLink to={'/login'}>Login</NavLink></li>
+                            {getLocal(ACCESS_TOKEN) ? (<li></li>) : (
+                                <>
+                                <li><NavLink to={'/register'}>Register</NavLink></li>
+                                <li><NavLink to={'/login'}>Login</NavLink></li>
+                                </>
+                            )}
                             <li><NavLink to={'/profile'}>Profile</NavLink></li>
                         </ul>
                     </div>

@@ -59,7 +59,7 @@ function Register() {
         console.log(err)
         Swal.fire(
           'Error!',
-          `${err.response.data.message} !`,
+          `This email has been used!`,
           'error'
         )
       }

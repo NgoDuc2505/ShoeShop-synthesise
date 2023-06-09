@@ -69,13 +69,13 @@ function Profile() {
         });
         Swal.fire(
           'Success!',
-          `${resp.data.content}`,
+          `Your profile has been updated!`,
           'success'
         )
       }catch(error){
         Swal.fire(
           'Error!',
-          `${error.response.data.message} !`,
+          `Please don't let invalid email or used email !`,
           'error'
         )
         throw Error(error)
