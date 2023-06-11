@@ -1,16 +1,16 @@
 //react
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import {NavLink, useNavigate} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux';
 // public_icons
 import Logo from '/src/assets/icons/logo';
 // scss
 import './header.scss'
 //utils
-import { getLocal, deleteLocalStrgKey } from '/src/utils/localStorage/index.js';
+import {deleteLocalStrgKey, getLocal} from '/src/utils/localStorage/index.js';
 //constant
-import { ACCESS_TOKEN } from '/src/const/index.js';
-import { logoutUser } from '/src/redux/redux-slides/userReduxSlides';
+import {ACCESS_TOKEN} from '/src/const/index.js';
+import {logoutUser} from '/src/redux/redux-slides/userReduxSlides';
 //sweet alert
 import Swal from 'sweetalert2';
 
@@ -20,9 +20,9 @@ import Swal from 'sweetalert2';
 function Header() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { cartList } = useSelector(state => state.productReducer)
-    const { profileData } = useSelector((state) => state.userReduxSlides)
-    const { avatar } = profileData
+    const {cartList} = useSelector(state => state.productReducer)
+    const {profileData} = useSelector((state) => state.userReduxSlides)
+    const {avatar} = profileData
     const handleNavigate = () => {
         navigate('/profile')
     }
@@ -34,7 +34,7 @@ function Header() {
             'Success!',
             'You have been navigated to Login.',
             'success'
-          )
+        )
     }
     return (
         <>
@@ -50,7 +50,7 @@ function Header() {
                         <li>
                             <NavLink to={'/search'}>
                                 <div className="li_wrapper">
-                                    <img src="/src/assets/icons/searchIcon.svg" alt="..." />
+                                    <img src="/src/assets/icons/searchIcon.svg" alt="..."/>
                                     <p>Search</p>
                                 </div>
                             </NavLink>
@@ -58,20 +58,23 @@ function Header() {
                         <li>
                             <NavLink to={'/cart'}>
                                 <div className="li_wrapper">
-                                    <img src="/src/assets/icons/cartIcon.svg" alt="..." />
+                                    <img src="/src/assets/icons/cartIcon.svg" alt="..."/>
                                     <p>({cartList.length})</p>
                                 </div>
                             </NavLink>
                         </li>
                         <li>
                             {avatar
-                                ? <img onClick={handleNavigate} style={{ width: 40, height: 40, borderRadius: '50%' }} src={avatar} alt="..." />
-                                : (getLocal(ACCESS_TOKEN) ? <NavLink to={'/profile'}>Go to profile</NavLink> : <NavLink to={'/register'}>Register</NavLink>)}
+                                ? <img onClick={handleNavigate} style={{width: 40, height: 40, borderRadius: '50%'}}
+                                       src={avatar} alt="..."/>
+                                : (getLocal(ACCESS_TOKEN) ? <NavLink to={'/profile'}>Go to profile</NavLink> :
+                                    <NavLink to={'/register'}>Register</NavLink>)}
                         </li>
                         <li>
                             {getLocal(ACCESS_TOKEN)
                                 ? <button className='logout_btn' onClick={handleLogout}>Log out</button>
-                                : (getLocal(ACCESS_TOKEN) ? <NavLink to={'/profile'}></NavLink> : <NavLink to={'/login'}>Login</NavLink>)}
+                                : (getLocal(ACCESS_TOKEN) ? <NavLink to={'/profile'}></NavLink> :
+                                    <NavLink to={'/login'}>Login</NavLink>)}
                         </li>
                     </ul>
                 </div>

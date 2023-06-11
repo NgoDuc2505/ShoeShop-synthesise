@@ -2,9 +2,9 @@
 import React, { Fragment, Suspense} from 'react'
 import { Outlet } from 'react-router-dom'
 //component
-import Header from '/src/components/header/Header'
-import Footer from '/src/components/footer/Footer'
-import Loading from '/src/components/loading/Loading'
+import Header from '/src/components/Header/Header'
+import Footer from '/src/components/Footer/Footer'
+import Loading from '/src/components/Loading/Loading'
 
 //---------------------------------------------------------------------------------
 

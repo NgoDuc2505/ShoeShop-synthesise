@@ -1,21 +1,17 @@
 import './DetailProduct.scss'
 //react
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {useParams} from 'react-router-dom'
 //redux
-import { setToCart } from '/src/redux/redux-slides/productListSlide'
-//utils
-import { getLocal } from '/src/utils/localStorage/index.js'
-//constant
-import { ACCESS_TOKEN } from '/src/const/index.js'
+import {setToCart} from '/src/redux/redux-slides/productListSlide'
 //---------------------------------------------------------------------------------
 
 function DetailProduct() {
     const dispatch = useDispatch()
     const params = useParams()
 
-    const { productDetail, cartList } = useSelector(state => state.productReducer)
+    const {productDetail, cartList} = useSelector(state => state.productReducer)
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -35,14 +31,14 @@ function DetailProduct() {
     }
 
     const addToCart = () => {
-        let cart = { ...productDetail, count }
+        let cart = {...productDetail, count}
         dispatch(setToCart(cart))
     }
 
     return (
         <div className='detail-product row'>
             <div className="detail-product-left">
-                <img src={productDetail.image} alt="" />
+                <img src={productDetail.image} alt=""/>
             </div>
             <div className="detail-product-right">
                 <h2>{productDetail.name}</h2>
@@ -54,10 +50,16 @@ function DetailProduct() {
                     )
                 })}
                 <span className='detail-price'>{productDetail.price}$</span>
-                <div >
-                    <button className='btn-quantity' onClick={() => { handleChangeNumber(1) }}>+</button>
+                <div>
+                    <button className='btn-quantity' onClick={() => {
+                        handleChangeNumber(1)
+                    }}>+
+                    </button>
                     <span>{count}</span>
-                    <button className='btn-quantity' onClick={() => { handleChangeNumber(-1) }}>-</button>
+                    <button className='btn-quantity' onClick={() => {
+                        handleChangeNumber(-1)
+                    }}>-
+                    </button>
                 </div>
                 <button className='add-cart' onClick={addToCart}>Add to cart</button>
             </div>
