@@ -6,14 +6,11 @@ import { Button, Space } from 'antd';
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 //utils
-// import formiK, { submitValid } from '../../utils/formik/formikGenerate';
 import useScrollToTop from '../../utils/custom-hook/useScrollToTop';
-
 //libaries
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-
 //utils
 import { setLocal } from '/src/utils/localStorage/index.js';
 //constant

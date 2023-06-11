@@ -2,12 +2,11 @@ import './SearchProduct.scss'
 //lodash
 import _ from 'lodash';
 //antd
-import { Select } from 'antd';
-import { Empty } from 'antd';
+import {Empty, Select} from 'antd';
 //react
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 //Component
-import ListItem from '../listItem/ListItem';
+import ListItem from '../ListItem/ListItem';
 
 //---------------------------------------------------------------------------------
 
@@ -25,7 +24,7 @@ const sort = [
 //---------------------------------------------------------------------------------
 
 function SearchProduct(props) {
-    const { listProductSearch } = props;
+    const {listProductSearch} = props;
     const [listSort, setListSort] = useState([]);
     const [filter, setFilter] = useState('desc');
 
@@ -42,17 +41,17 @@ function SearchProduct(props) {
             <div className='search-result'>
                 <p>Price</p>
                 <Select className='input-filter'
-                    defaultValue="desc"
-                    style={{
-                        width: 445,
-                    }}
-                    onChange={handleChange}
-                    options={sort}
+                        defaultValue="desc"
+                        style={{
+                            width: 445,
+                        }}
+                        onChange={handleChange}
+                        options={sort}
                 />
             </div>
             {listSort.length === 0 ?
-                <Empty /> :
-                <ListItem listProductOption={listSort} option />
+                <Empty/> :
+                <ListItem listProductOption={listSort} option/>
             }
         </>
 

@@ -1,21 +1,25 @@
 import './CardProduct.scss';
+//axios
+import axios from 'axios';
 //react
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 //assets
 import heartFull from "/src/assets/icons/heartFull.svg";
 import heartBorder from "/src/assets/icons/heartBoder.svg";
-import axios from 'axios';
+//utils
 import { getLocal } from '/src/utils/localStorage/index.js';
+//const
 import { ACCESS_TOKEN } from '/src/const/index.js';
-import { useSelector } from 'react-redux';
 //---------------------------------------------------------------------------------
 
 function CardProduct(props) {
-    const { product, listFavor, setChange, change} = props;
+    const { product, listFavor, setChange, change } = props;
     const [isFavor, setIsFavor] = useState(false);
     const [imgSrc, setImgSrc] = useState(heartBorder)
-    const {favoriteList } = useSelector((state) => state.userReduxSlides);
+    const { favoriteList } = useSelector((state) => state.userReduxSlides);
+
     useEffect(() => {
         if (listFavor?.find((favorite) => favorite.id === product.id)) {
             setIsFavor(true);
@@ -25,7 +29,8 @@ function CardProduct(props) {
             setImgSrc(heartBorder)
         }
     }, [listFavor])
-    useEffect(()=>{
+
+    useEffect(() => {
         if (favoriteList?.find((favorite) => favorite.id === product.id)) {
             setIsFavor(true);
             setImgSrc(heartFull)
@@ -33,7 +38,7 @@ function CardProduct(props) {
             setIsFavor(false);
             setImgSrc(heartBorder)
         }
-    },[favoriteList])
+    }, [favoriteList])
 
     const changFavorite = async (link) => {
         try {
@@ -52,8 +57,17 @@ function CardProduct(props) {
     };
 
     const handleChangeFavorite = (id) => {
-        changFavorite(`https://shop.cyberlearn.vn/api/Users/${isFavor ? 'unlike' : 'like'}?productId=${id}`)
-
+        if (getLocal(ACCESS_TOKEN)) {
+            changFavorite(`https://shop.cyberlearn.vn/api/Users/${isFavor ? 'unlike' : 'like'}?productId=${id}`)
+        } else {
+            if (!isFavor) {
+                setIsFavor(true);
+                setImgSrc(heartFull)
+            } else {
+                setIsFavor(false);
+                setImgSrc(heartBorder)
+            }
+        }
     }
 
     return (
