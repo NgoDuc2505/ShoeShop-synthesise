@@ -110,12 +110,10 @@ function Login() {
               </Space>
             </div>
             <div className="form-group-login facebook-login">
-              {/* <NavLink to={'/continue-facebook'}>
-                <img src="src/assets/icons/facebook.svg" alt="facebook" />
-                Continue with Facebook
-              </NavLink> */}
               <FacebookLogin
                 appId="552885443724769"
+                cookie={true}
+                xfbml={true}
                 autoLoad={false}
                 fields="name,email,picture"
                 cssClass="my-facebook-button-class"
