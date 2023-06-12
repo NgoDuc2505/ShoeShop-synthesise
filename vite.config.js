@@ -13,5 +13,6 @@ export default defineConfig({
       src: '/src',
       public: '/public'
     }
-  }
+  },
+  base: "/ShoeShop-synthesise/",
 })
