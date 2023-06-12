@@ -17,14 +17,10 @@ import { setLocal } from '/src/utils/localStorage/index.js';
 import { ACCESS_TOKEN } from '/src/const/index.js'
 //sweet alert
 import Swal from 'sweetalert2';
-import FacebookLogin from 'react-facebook-login';
 
 //---------------------------------------------------------------------------------
 
 function Login() {
-  const responseFacebook = (resp) => {
-    console.log(resp)
-  }
   const navigate = useNavigate()
   useScrollToTop()
   // const formik = formiK();
@@ -103,22 +99,16 @@ function Login() {
                   className='btn_submit_login'
                   shape='round'
                   htmlType='submit'
-                // onClick={() => { submitValid(formik, ['email', 'password']) }}
                 >
                   Log in
                 </Button>
               </Space>
             </div>
             <div className="form-group-login facebook-login">
-              <FacebookLogin
-                appId="552885443724769"
-                cookie={true}
-                xfbml={true}
-                autoLoad={false}
-                fields="name,email,picture"
-                cssClass="my-facebook-button-class"
-                icon="fa-facebook"
-                callback={responseFacebook} />
+            <NavLink to={'/continue-facebook'}>
+                <img src="src/assets/icons/facebook.svg" alt="facebook" />
+                Continue with Facebook
+              </NavLink>
             </div>
           </form>
         </div>
