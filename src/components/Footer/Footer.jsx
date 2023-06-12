@@ -54,7 +54,7 @@ function Footer() {
             </div>
         </div>
         <div className="sub-footer">
-            <p>© 2023 Cybersoft All Rights Reserved | Copyright Theme by Ngô Minh Đức.</p>
+            <p>© 2023 Cybersoft All Rights Reserved | Copyright Theme by Đức - Cường.</p>
         </div>
     </div>
   )
