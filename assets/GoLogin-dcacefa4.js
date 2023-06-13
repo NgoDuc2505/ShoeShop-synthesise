@@ -1,1 +1,0 @@
-import{j as o,N as i}from"./index-2f0526f8.js";function s(){return o.jsxs("div",{className:"Warning_box_login",children:[o.jsx("p",{children:"You have to Log in before accessing this page !"}),o.jsx("div",{className:"go_to_login",children:o.jsx(i,{to:"/login",children:"Log in"})})]})}export{s as G};
