@@ -88,7 +88,7 @@ function Register() {
 
                             <div className="form-group">
                                 <label className='label_form' htmlFor="password">Password</label>
-                                <input type="text" className='form-control input_form' placeholder='Password'
+                                <input type="password" className='form-control input_form' placeholder='Password'
                                        id='password' name='password'
                                        onChange={formik.handleChange}
                                        onBlur={formik.handleBlur}
@@ -101,7 +101,7 @@ function Register() {
                             <div className="form-group">
                                 <label className='label_form' htmlFor="psConfirm">Password confirm</label>
                                 <input
-                                    type="text"
+                                    type="password"
                                     className='form-control input_form'
                                     placeholder='Password confirm'
                                     id='psConfirm'
