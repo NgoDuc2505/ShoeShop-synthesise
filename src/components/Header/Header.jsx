@@ -13,7 +13,8 @@ import {ACCESS_TOKEN} from '/src/const/index.js';
 import {logoutUser} from '/src/redux/redux-slides/userReduxSlides';
 //sweet alert
 import Swal from 'sweetalert2';
-
+import searchIcon from "/src/assets/icons/searchIcon.svg";
+import cartIcon from "/src/assets/icons/cartIcon.svg";
 
 //======================================================
 
@@ -50,7 +51,7 @@ function Header() {
                         <li>
                             <NavLink to={'/search'}>
                                 <div className="li_wrapper">
-                                    <img src="/src/assets/icons/searchIcon.svg" alt="..."/>
+                                    <img src={searchIcon} alt="..."/>
                                     <p>Search</p>
                                 </div>
                             </NavLink>
@@ -58,7 +59,7 @@ function Header() {
                         <li>
                             <NavLink to={'/cart'}>
                                 <div className="li_wrapper">
-                                    <img src="/src/assets/icons/cartIcon.svg" alt="..."/>
+                                    <img src={cartIcon} alt="..."/>
                                     <p>({cartList.length})</p>
                                 </div>
                             </NavLink>
