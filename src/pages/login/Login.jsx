@@ -17,7 +17,7 @@ import { setLocal } from '/src/utils/localStorage/index.js';
 import { ACCESS_TOKEN } from '/src/const/index.js'
 //sweet alert
 import Swal from 'sweetalert2';
-
+import fbIcon from '/src/assets/icons/facebook.svg'
 //---------------------------------------------------------------------------------
 
 function Login() {
@@ -106,7 +106,7 @@ function Login() {
             </div>
             <div className="form-group-login facebook-login">
             <NavLink to={'/continue-facebook'}>
-                <img src="src/assets/icons/facebook.svg" alt="facebook" />
+                <img src={fbIcon} alt="facebook" />
                 Continue with Facebook
               </NavLink>
             </div>
