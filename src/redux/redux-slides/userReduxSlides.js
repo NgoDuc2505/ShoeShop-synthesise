@@ -44,6 +44,7 @@ const userReduxSlides = createSlice({
     builder.addCase(profileFavoriteThunkAction.fulfilled,
         (state,action) =>{
             state.favoriteList = action.payload.data.content.productsFavorite;
+            localStorage.setItem('favorList', JSON.stringify([]))
         })
   }
 });

@@ -12,7 +12,7 @@ import {ACCESS_TOKEN} from '/src/const/index.js';
 
 function ListItem(props) {
     const {option, listProductOption} = props;
-    const {listProduct} = useSelector((state) => state.productReducer)
+    const {listProduct, favorList} = useSelector((state) => state.productReducer)
     const [listFavor, setListFavor] = useState([]);
     const [change, setChange] = useState(false);
 
@@ -32,7 +32,11 @@ function ListItem(props) {
     };
 
     useEffect(() => {
-        getListFavorite()
+        if(getLocal(ACCESS_TOKEN)){
+            getListFavorite()
+        } else {
+            setListFavor(favorList)
+        }
     }, [change])
 
     return (

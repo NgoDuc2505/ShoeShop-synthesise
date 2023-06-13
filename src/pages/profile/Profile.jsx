@@ -36,7 +36,6 @@ function Profile() {
     useEffect(() => {
         dispatch(profileFavoriteThunkAction())
     }, [change])
-    const {favoriteProductList, orderHistoryList} = useSelector((state) => state.productReducer);
     const {profileData, favoriteList} = useSelector((state) => state.userReduxSlides);
     const {avatar, gender, password, name, phone, email, ordersHistory} = profileData;
     const regex = {
