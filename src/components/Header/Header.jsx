@@ -13,8 +13,8 @@ import {ACCESS_TOKEN} from '/src/const/index.js';
 import {logoutUser} from '/src/redux/redux-slides/userReduxSlides';
 //sweet alert
 import Swal from 'sweetalert2';
-import searchIcon from "/src/assets/icons/searchIcon.svg";
-import cartIcon from "/src/assets/icons/cartIcon.svg";
+import searchIcon from '/src/assets/icons/searchIcon.svg';
+import cartIcon from '/src/assets/icons/cartIcon.svg';
 
 //======================================================
 
