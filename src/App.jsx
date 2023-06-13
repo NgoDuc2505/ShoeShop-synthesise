@@ -23,7 +23,7 @@ const Cart = lazy(() => { return import('./pages/cart/Cart') });
 
 function App() {
   return (
-    <BrowserRouter basename='/ShoeShop-synthesise'>
+    <BrowserRouter>
       <Routes>
         <Route path='' element={<HomePlate />}>
           <Route index element={<Home />}></Route>
